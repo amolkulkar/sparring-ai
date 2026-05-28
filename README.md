@@ -112,7 +112,7 @@ cd sparring-ai
 
 ## Demo
 
-**Live:** [sparring-ai.netlify.app](https://sparring-ai.netlify.app)
+**Live:** [sparring-ai.netlify.app]([https://sparring-ai.netlify.app](https://genuine-alpaca-a9bb26.netlify.app/))
 
 **Try it with this idea:**
 > "An app that helps people track their daily water intake using AI reminders and gamification to build healthy habits."
