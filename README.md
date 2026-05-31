@@ -26,7 +26,7 @@ You never click anything after step 1. The agent runs the whole loop.
 
 ## Demo
 
-**Live:** [your-netlify-url.netlify.app]
+**Live:** [https://sparring-ai.onrender.com/]
 
 Try it with this idea:
 > "An AI tool that helps remote teams run better standups by summarizing Slack activity and suggesting agenda items automatically."
