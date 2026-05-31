@@ -1,180 +1,232 @@
 # Sparring 🥊
-### An agentic AI that destroys your startup idea before the market does.
+### An agentic AI that researches real competitors and destroys your startup idea before the market does.
+
+> Built by Amol Kulkarni (AI Engineer, Atria) for the OpenAI × Outskill AI Builders Hackathon 2026.  
+> Version 2 — now with real web research, proper backend, and structured agent architecture.
 
 ---
 
-## The Honest Problem
+## What Is This?
 
-Every founder has experienced this:
+You have a startup idea. You pitch it to friends. They say "amazing!" You pitch it to family. They say "so proud!" Then the first real investor tears it apart in 90 seconds flat.
 
-You come up with an idea. You pitch it to your friends. They say *"wow that's brilliant!"* You pitch it to your family. They say *"so proud of you!"* You pitch it to your colleagues. They nod politely.
+The problem isn't your idea. It's that **nobody gave you honest, informed feedback before you got there.**
 
-Then you pitch it to your first real investor — and they tear it apart in 90 seconds.
+Sparring fixes that. You submit your idea once. An autonomous agent:
 
-The problem isn't that your idea is bad. The problem is **nobody gave you honest feedback before you got there.**
+1. **Researches the real market** — searches the web for actual competitors, failed startups, customer complaints, and incumbent threats
+2. **Attacks as a Skeptical VC** — using real competitor data it found, not generic AI advice
+3. **Attacks as a Cynical User** — referencing actual complaints found about similar products
+4. **Attacks as a Rival Founder** — reads both previous attacks and finds the execution gap they both missed
+5. **Synthesizes a Weakness Report** — ranked by severity, with actionable fixes and citations
 
-YC has office hours. Accelerators have mentors. But what about the 99% of builders who don't have access to a brutal, honest, knowledgeable person who will tell them exactly what's wrong with their idea at 11pm when they're building?
-
-That's what Sparring is.
-
----
-
-## What It Actually Does
-
-You type your startup idea. One time. That's it.
-
-Then an autonomous agent takes over:
-
-**Round 1 — Skeptical VC attacks**
-The agent becomes a venture capitalist who has seen 10,000 pitches. It finds the fatal flaw in your business model — the market size delusion, the defensibility gap, the "why hasn't this been built before" question you've been avoiding.
-
-**Round 2 — Cynical User attacks**
-The agent switches persona. Now it's a busy, skeptical potential customer who doesn't want to change their habits, doesn't trust new tools, and always asks "why wouldn't I just use Google/Excel/WhatsApp for this?" It attacks a completely different angle from Round 1.
-
-**Round 3 — Rival Founder attacks**
-The agent reads BOTH previous attacks and finds what they missed. It becomes a competitor who has already built something similar and knows every execution pitfall, every go-to-market trap, every scaling nightmare you haven't thought about yet.
-
-**Final — Weakness Report generated automatically**
-The agent synthesizes all 3 rounds into your top 3 critical weaknesses, ranked by severity. No button click. It just does it.
-
-You can defend each attack as it happens. The agent rebuts your defense. That's the loop.
+You never click anything after step 1. The agent runs the whole loop.
 
 ---
 
-## Why This Is Actually Agentic
+## Demo
 
-I want to be honest about this because "agentic AI" gets thrown around a lot.
+**Live:** [your-netlify-url.netlify.app]
 
-Most AI tools are just chatbots — you prompt, they respond, you prompt again. That's not an agent.
+Try it with this idea:
+> "An AI tool that helps remote teams run better standups by summarizing Slack activity and suggesting agenda items automatically."
 
-Sparring is agentic because:
+Watch the agent find real competitors, cite actual failure cases, and deliver attacks you didn't see coming.
 
-**1. Single input, autonomous multi-step execution**
-You give it one goal ("attack this idea") and the agent figures out the steps, executes them in sequence, and terminates with a deliverable. You don't prompt each round.
+---
 
-**2. Context memory across rounds**
-Each persona reads the previous attacks before generating its own. The Rival Founder literally knows what the VC and User said and is instructed to find what they missed. The agent is building on its own output.
+## How It Actually Works
 
-**3. Adaptive persona switching**
-The agent decides how to attack based on accumulated context — not a fixed script. Round 3 is always different from Round 1 because the agent has learned from the session.
+```
+User types idea (once)
+        ↓
+Agent plans 5 research queries autonomously
+        ↓
+Tavily searches the real web in parallel
+        ↓
+LLM structures raw results → Evidence Pack
+{competitors, failureCases, customerComplaints, marketRisks}
+        ↓
+Skeptical VC → attacks business model using real competitor data
+        ↓
+Cynical User → reads VC attack → attacks adoption using real complaints
+        ↓
+Rival Founder → reads both attacks → finds execution gap both missed
+        ↓
+Agent synthesizes → Weakness Report with severity + fixes
+        ↓
+Done. Human never prompted between steps.
+```
 
-**4. Autonomous termination + synthesis**
-The agent knows when it's done (after 3 rounds) and automatically generates the report. It doesn't wait for you to ask.
-
-**Human in the loop only where it matters** — you can defend each attack, which feeds back into the agent's rebuttal. Everything else is autonomous.
+The key thing that makes this agentic: **context accumulates between steps.** The Rival Founder literally receives the VC attack and User attack as input before generating its own. Each step builds on the previous one. The agent decides when it's done.
 
 ---
 
 ## Tech Stack
 
 ```
-Frontend     →  Vanilla HTML + CSS + JS (single file, zero dependencies)
-AI Engine    →  Any API which is strong enough
-Agent Loop   →  Custom async sequential pipeline with context passing
-Hosting      →  Netlify (deployed from GitHub)
-Built with   →  OpenAI Codex (used for writing and iterating the agent loop)
+Backend       Node.js + Express     Agent loop, API orchestration
+Frontend      Vanilla HTML/CSS/JS   Clean UI, zero framework overhead
+Research      Tavily API            Real-time web search
+AI Brain      Groq (Llama 3.3-70b)  LLM reasoning and generation
+Streaming     Server Sent Events    Live progress updates to UI
+Built with    OpenAI Codex          Used to write and iterate the agent architecture
+Hosting       Netlify + GitHub      Auto-deploy on push
 ```
 
-No framework. No backend. No database. One file.
-
-This was a deliberate choice — the agentic logic is the product, not the infrastructure. A single HTML file that anyone can download, open, and run locally is more honest than a bloated Next.js app that does the same thing.
+No React. No TypeScript. No unnecessary complexity.  
+One backend, one frontend, eight focused files.
 
 ---
 
-## How to Run It
+## Project Structure
 
-### Option 1 — Just open the file
-Download `index.html`. Double click it. Opens in your browser. Works immediately in demo mode with realistic mock responses.
+```
+sparring/
+  server.js                 ← Express server, SSE streaming
+  index.html                ← Frontend UI
+  package.json
+  .env                      ← API keys (never committed)
 
-### Option 2 — With live AI (needs API key)
+  agents/
+    orchestrator.js         ← Main agent loop (the brain)
+    llm.js                  ← Single LLM caller, easy to swap models
+    personas/
+      vc.js                 ← Skeptical VC attack logic
+      user.js               ← Cynical User attack logic
+      founder.js            ← Rival Founder attack logic
 
-Get a free API key from one of:
-- [console.groq.com](https://console.groq.com) — completely free, no card needed
-- [console.anthropic.com](https://console.anthropic.com) — $5 free credits on new accounts
-- [aistudio.google.com](https://aistudio.google.com) — Gemini free tier
+  research/
+    tavily.js               ← Web search wrapper
+    evidencePack.js         ← Query planner + evidence structurer
 
-Open `index.html` in any text editor. Find this line near the bottom:
-
-```javascript
-const API_KEY = "API_KEY_HERE";
+  reports/
+    weaknessReport.js       ← Final synthesis and ranking
 ```
 
-Replace it with your key. Save. Open in browser.
+Each file does one thing. If you want to swap Groq for OpenAI, you change one file. If you want to add a new persona, you add one file and update the orchestrator. That's the point of the structure.
 
-### Option 3 — Clone and run
+---
+
+## Why This Is Actually Agentic
+
+I want to be straight about this because "agentic AI" gets thrown around a lot.
+
+**Not agentic:** User prompts → AI responds → repeat. That's a chatbot.
+
+**Agentic (what we built):**
+- Single goal given once
+- Agent autonomously decides research strategy
+- Uses a real tool (web search) to gather external data
+- Passes structured context between reasoning steps
+- Each step adapts based on what previous steps found
+- Self-terminates with a synthesized deliverable
+- Human only enters the loop to optionally defend
+
+What it doesn't do (honest): browse autonomously, retry on failure, spawn sub-agents, or have persistent memory across sessions. Those are real limitations. This is an MVP built in 7 days, not AutoGPT.
+
+---
+
+## How To Run It Locally
+
+**Requirements:** Node.js v18+, a Tavily API key, a Groq API key
+
 ```bash
-git clone https://github.com/amolkulkarni/sparring-ai
+# Clone the repo
+git clone https://github.com/amolkulkar/sparring-ai
 cd sparring-ai
-# open index.html in browser
+
+# Install dependencies
+npm install
+
+# Add your API keys
+cp .env.example .env
+# Edit .env with your keys
+
+# Run
+node server.js
+
+# Open browser
+http://localhost:3000
 ```
+
+**Get free API keys:**
+- Tavily: [app.tavily.com](https://app.tavily.com) — 1000 free searches/month, no card
+- Groq: [console.groq.com](https://console.groq.com) — completely free, no card
 
 ---
 
-## Demo
+## .env.example
 
-**Live:** [sparring-ai.netlify.app]([https://sparring-ai.netlify.app](https://genuine-alpaca-a9bb26.netlify.app/))
-
-**Try it with this idea:**
-> "An app that helps people track their daily water intake using AI reminders and gamification to build healthy habits."
-
-Watch what happens.
+```
+GROQ_API_KEY=your_groq_key_here
+TAVILY_API_KEY=your_tavily_key_here
+PORT=3000
+```
 
 ---
 
 ## What I Learned Building This
 
-I'm going to be real — I'm not a senior engineer. I built this in one day during a hackathon. Here's what I actually learned:
+I'll be real — I'm not a senior engineer and I built this in a hackathon week. Here's what actually surprised me:
 
-**The hardest part wasn't the code.** It was figuring out what "agentic" actually means in practice. There's a huge gap between "AI that responds to prompts" and "AI that autonomously executes a multi-step plan." The difference is context passing between steps and autonomous decision-making about what to do next.
+**The hardest part was prompt engineering, not code.**
+Getting the VC persona to cite actual competitors from the evidence pack (instead of hallucinating) took more iteration than building the entire Express server. Getting the Rival Founder to genuinely read and build on the previous two attacks — not just repeat them — took serious prompt work.
 
-**Prompt engineering is real engineering.** Getting the VC persona to ask a genuinely devastating question (not a generic one), and getting the Rival Founder to actually read and build on the VC's attack — that took more iteration than the UI did.
+**SSE was new to me.**
+Streaming real-time status updates from server to frontend using Server Sent Events was something I hadn't built before. The result (watching each pipeline step light up as the agent progresses) is worth it.
 
-**Demo mode was a good decision.** Building realistic mock responses means anyone can experience the product without an API key. The concept lands even without live AI.
+**The evidence pack transforms everything.**
+When attacks cite "Preuve AI already does X" or "DimeADozen failed because Y" — that's the moment it stops feeling like a chatbot. Real data grounds everything.
 
-**The idea came from a real pain.** I submitted this to a hackathon. To get shortlisted I had to write down my idea. I had no way to stress-test it honestly before submitting. I wished Sparring existed. That's probably the right signal.
+**I used this tool on itself.**
+The Sparring idea was submitted to this hackathon. I had no way to stress-test it honestly before submitting. Sparring found real competitors I didn't know existed. That's probably the right signal that it works.
 
 ---
 
 ## What's Missing (Honest)
 
-- No persistent storage — sessions don't save
-- No user accounts
-- The mock responses are good but not personalized to your specific industry
-- No way to share your Weakness Report with a link
-- Mobile UI could be better
-- Needs a real backend to hide the API key properly
+- No persistent sessions — refresh loses everything
+- No user accounts or saved reports
+- No shareable report links
+- Attacks are sequential, not parallel (slower than it could be)
+- Mobile UI could use more work
+- Needs a proper backend deployment (currently localhost only)
+- API keys in .env means you need to self-host to run live
 
-These are all solvable. This is an MVP built in a hackathon week.
+All solvable. This is a working prototype, not a production product.
 
 ---
 
 ## What's Next
 
-If this gets traction:
+If this gets traction after the hackathon:
 
-- **Industry-specific personas** — a SaaS VC attacks differently than a consumer VC
-- **Save + share reports** — get a shareable link to your Weakness Report
-- **Async mode** — submit your idea, get your report emailed in 10 minutes
-- **Community** — see how other founders defended the same attacks
+- **Industry-specific personas** — SaaS VC attacks differently than consumer VC
+- **Shareable report links** — send your Weakness Report to cofounders
+- **Async mode** — submit idea, get report emailed in 10 minutes
+- **Defense mode** — defend each weakness, agent attacks your defense
+- **History** — save and compare reports across idea iterations
 
 ---
 
 ## Built During
 
-**OpenAI × Outskill AI Builders Hackathon 2026**
-Cohort 01 · May 25–31, 2026
-1,000 builders selected from 10,000 applications
+**OpenAI × Outskill AI Builders Hackathon 2026**  
+Cohort 01 · May 25–31, 2026  
+1,000 builders selected from 10,000 applications  
+Built in approximately 7 days
 
 ---
 
-## About Me
+## About
 
 **Amol Kulkarni** — AI Engineer at Atria, Bengaluru.
 
-I build things with AI. Sometimes they work.
+I build things with AI. Sometimes they work. This one did.
 
-[LinkedIn](https://linkedin.com/in/amolkulkarni) · [GitHub](https://github.com/amolkulkarni)
+[LinkedIn](https://linkedin.com/in/amolkulkarni) · [GitHub](https://github.com/amolkulkar)
 
 ---
 
-*#AIBuildersHackathon #Outskill #OpenAI #Codex*
+*#AIBuildersHackathon #Outskill #OpenAI #Codex #BuildInPublic*
