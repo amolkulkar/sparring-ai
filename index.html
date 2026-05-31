@@ -6,791 +6,340 @@
 <title>Sparring — Agentic Idea Destroyer</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
-
   :root {
-    --bg: #080808;
-    --surface: #111;
-    --border: #1e1e1e;
-    --accent: #c8f135;
-    --red: #ff3b3b;
-    --orange: #ff8c42;
-    --blue: #58a6ff;
-    --text: #e8e8e8;
-    --muted: #555;
-    --card: #121212;
+    --bg: #080808; --surface: #111; --border: #1e1e1e;
+    --accent: #C8F135; --red: #FF3B3B; --orange: #FF8C42;
+    --blue: #58A6FF; --text: #E8E8E8; --muted: #555; --card: #121212;
   }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Syne',sans-serif; min-height:100vh; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:20px 40px; border-bottom:1px solid var(--border); }
+  .logo { font-size:20px; font-weight:800; color:var(--accent); }
+  .logo span { color:var(--text); }
+  .badge { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); border:1px solid var(--border); padding:4px 10px; border-radius:20px; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    min-height: 100vh;
-  }
-
-  /* HEADER */
-  header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 40px;
-    border-bottom: 1px solid var(--border);
-  }
-  .logo { font-size: 20px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; }
-  .logo span { color: var(--text); }
-  .badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; color: var(--muted);
-    border: 1px solid var(--border);
-    padding: 4px 10px; border-radius: 20px;
-  }
-
-  /* HERO */
-  .hero {
-    padding: 60px 40px 40px;
-    max-width: 700px;
-  }
-  .hero h1 {
-    font-size: clamp(32px, 4.5vw, 58px);
-    font-weight: 800; line-height: 1.05;
-    letter-spacing: -2px; margin-bottom: 16px;
-  }
-  .hero h1 em { font-style: normal; color: var(--accent); }
-  .hero p { font-size: 15px; color: #777; line-height: 1.7; max-width: 480px; }
-
-  /* AGENT BADGE */
-  .agent-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(200,241,53,0.08);
-    border: 1px solid rgba(200,241,53,0.2);
-    border-radius: 20px; padding: 6px 14px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; color: var(--accent);
-    margin-bottom: 24px; letter-spacing: 0.5px;
-  }
-  .agent-dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--accent);
-    animation: blink 1.5s infinite;
-  }
+  .hero { padding:50px 40px 30px; max-width:700px; }
+  .agent-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(200,241,53,0.08); border:1px solid rgba(200,241,53,0.2); border-radius:20px; padding:6px 14px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent); margin-bottom:20px; }
+  .dot { width:7px; height:7px; border-radius:50%; background:var(--accent); animation:blink 1.5s infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
-  /* INPUT SECTION */
-  .input-section {
-    padding: 0 40px 40px;
-    max-width: 760px;
-  }
+  h1 { font-size:clamp(28px,4vw,52px); font-weight:800; line-height:1.05; letter-spacing:-2px; margin-bottom:14px; }
+  h1 em { font-style:normal; color:var(--accent); }
+  .sub { font-size:15px; color:#777; line-height:1.7; max-width:500px; }
 
-  textarea {
-    width: 100%; min-height: 120px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    font-size: 15px; line-height: 1.6;
-    padding: 16px; resize: vertical;
-    outline: none; transition: border-color 0.2s;
-    margin-bottom: 16px;
-  }
-  textarea:focus { border-color: var(--accent); }
-  textarea::placeholder { color: #333; }
+  .input-section { padding:0 40px 30px; max-width:760px; }
+  textarea { width:100%; min-height:110px; background:var(--surface); border:1px solid var(--border); border-radius:10px; color:var(--text); font-family:'Syne',sans-serif; font-size:15px; line-height:1.6; padding:16px; resize:vertical; outline:none; transition:border-color 0.2s; margin-bottom:14px; }
+  textarea:focus { border-color:var(--accent); }
+  textarea::placeholder { color:#333; }
 
-  .launch-btn {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    padding: 16px 32px;
-    background: var(--accent); color: #080808;
-    border: none; border-radius: 10px;
-    font-family: 'Syne', sans-serif;
-    font-size: 16px; font-weight: 800;
-    cursor: pointer; transition: all 0.2s;
-    letter-spacing: -0.3px;
-  }
-  .launch-btn:hover { background: #d4f53f; transform: translateY(-1px); }
-  .launch-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .launch-btn { display:flex; align-items:center; justify-content:center; gap:10px; padding:15px 28px; background:var(--accent); color:#080808; border:none; border-radius:10px; font-family:'Syne',sans-serif; font-size:16px; font-weight:800; cursor:pointer; transition:all 0.2s; }
+  .launch-btn:hover { background:#d4f53f; transform:translateY(-1px); }
+  .launch-btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
 
-  .launch-hint {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; color: var(--muted);
-    margin-top: 10px;
-  }
+  /* PIPELINE */
+  .pipeline { display:flex; align-items:center; padding:20px 40px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:#0d0d0d; overflow-x:auto; gap:0; }
+  .step { display:flex; flex-direction:column; align-items:center; gap:6px; min-width:90px; opacity:0.25; transition:opacity 0.4s; }
+  .step.active { opacity:1; }
+  .step.done { opacity:0.6; }
+  .step-icon { width:38px; height:38px; border-radius:8px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:16px; background:var(--card); transition:all 0.3s; }
+  .step.active .step-icon { border-color:var(--accent); box-shadow:0 0 16px rgba(200,241,53,0.25); }
+  .step-label { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--muted); text-align:center; letter-spacing:0.5px; }
+  .step.active .step-label { color:var(--accent); }
+  .arrow { color:var(--border); font-size:16px; margin:0 4px; padding-bottom:18px; flex-shrink:0; }
 
-  /* AGENT PIPELINE VISUALIZATION */
-  .pipeline {
-    display: flex; align-items: center; gap: 0;
-    padding: 24px 40px;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    overflow-x: auto;
-    background: #0d0d0d;
-  }
+  /* OUTPUT */
+  .output { padding:30px 40px; max-width:900px; }
 
-  .pipe-step {
-    display: flex; flex-direction: column; align-items: center;
-    gap: 8px; min-width: 100px;
-    opacity: 0.3; transition: opacity 0.4s;
-  }
-  .pipe-step.active { opacity: 1; }
-  .pipe-step.done { opacity: 0.7; }
+  /* STATUS BAR */
+  .status-bar { display:none; align-items:center; gap:10px; padding:10px 14px; background:rgba(200,241,53,0.05); border:1px solid rgba(200,241,53,0.15); border-radius:8px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent); }
+  .status-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); animation:blink 0.8s infinite; flex-shrink:0; }
 
-  .pipe-icon {
-    width: 40px; height: 40px; border-radius: 10px;
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; transition: all 0.3s;
-    background: var(--card);
-  }
-  .pipe-step.active .pipe-icon {
-    border-color: var(--accent);
-    box-shadow: 0 0 16px rgba(200,241,53,0.2);
-    animation: pulse-border 1.5s infinite;
-  }
-  .pipe-step.done .pipe-icon { border-color: #333; }
-
-  @keyframes pulse-border {
-    0%,100%{ box-shadow: 0 0 8px rgba(200,241,53,0.2); }
-    50%{ box-shadow: 0 0 24px rgba(200,241,53,0.4); }
-  }
-
-  .pipe-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; color: var(--muted);
-    text-align: center; letter-spacing: 0.5px;
-  }
-  .pipe-step.active .pipe-label { color: var(--accent); }
-
-  .pipe-arrow {
-    color: var(--border); font-size: 18px;
-    margin: 0 4px; flex-shrink: 0;
-    padding-bottom: 20px;
-  }
-
-  /* MAIN OUTPUT */
-  .output-section {
-    padding: 40px;
-    max-width: 900px;
-  }
-
-  /* AGENT STATUS BAR */
-  .agent-status {
-    display: none;
-    align-items: center; gap: 12px;
-    padding: 12px 16px;
-    background: rgba(200,241,53,0.05);
-    border: 1px solid rgba(200,241,53,0.15);
-    border-radius: 8px;
-    margin-bottom: 24px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; color: var(--accent);
-  }
-  .status-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent);
-    animation: blink 0.8s infinite;
-    flex-shrink: 0;
-  }
+  /* RESEARCH BOX */
+  .research-box { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:20px; margin-bottom:16px; animation:slideIn 0.4s ease both; }
+  .research-title { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent); letter-spacing:1px; margin-bottom:12px; }
+  .query-chip { display:inline-block; background:rgba(200,241,53,0.06); border:1px solid rgba(200,241,53,0.15); border-radius:4px; padding:3px 8px; font-family:'JetBrains Mono',monospace; font-size:10px; color:#888; margin:3px 3px 3px 0; }
+  .evidence-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+  .evidence-item { background:#0f0f0f; border:1px solid var(--border); border-radius:6px; padding:10px 12px; }
+  .evidence-label { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:1px; margin-bottom:6px; }
+  .evidence-tag { display:inline-block; background:rgba(88,166,255,0.1); color:var(--blue); font-size:11px; padding:2px 7px; border-radius:3px; margin:2px 2px 2px 0; }
+  .evidence-tag.red { background:rgba(255,59,59,0.1); color:var(--red); }
+  .evidence-tag.orange { background:rgba(255,140,66,0.1); color:var(--orange); }
 
   /* ATTACK CARDS */
-  .attack-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px; padding: 24px;
-    margin-bottom: 16px;
-    animation: slideIn 0.5s ease both;
-    position: relative; overflow: hidden;
-  }
-  .attack-card::before {
-    content: '';
-    position: absolute; left: 0; top: 0; bottom: 0;
-    width: 3px;
-  }
-  .attack-card.vc::before { background: var(--red); }
-  .attack-card.user::before { background: var(--orange); }
-  .attack-card.founder::before { background: var(--blue); }
-  .attack-card.reporter::before { background: var(--accent); }
+  .attack-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:22px; margin-bottom:14px; animation:slideIn 0.5s ease both; position:relative; overflow:hidden; }
+  .attack-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; }
+  .attack-card.vc::before { background:var(--red); }
+  .attack-card.user::before { background:var(--orange); }
+  .attack-card.founder::before { background:var(--blue); }
+  @keyframes slideIn { from{opacity:0;transform:translateX(-16px)} to{opacity:1;transform:translateX(0)} }
 
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
+  .card-header { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+  .chip { font-family:'JetBrains Mono',monospace; font-size:10px; padding:3px 8px; border-radius:4px; }
+  .chip-vc { background:rgba(255,59,59,0.15); color:#ff6b6b; }
+  .chip-user { background:rgba(255,140,66,0.15); color:#ffa94d; }
+  .chip-founder { background:rgba(88,166,255,0.15); color:#74b9ff; }
+  .auto-tag { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--muted); margin-left:auto; border:1px solid var(--border); padding:2px 6px; border-radius:3px; }
 
-  .card-header {
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 14px;
-  }
+  .attack-text { font-size:14px; line-height:1.75; color:var(--text); }
 
-  .persona-chip {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; padding: 3px 8px;
-    border-radius: 4px; letter-spacing: 0.5px;
-  }
-  .chip-vc { background: rgba(255,59,59,0.15); color: #ff6b6b; }
-  .chip-user { background: rgba(255,140,66,0.15); color: #ffa94d; }
-  .chip-founder { background: rgba(88,166,255,0.15); color: #74b9ff; }
-  .chip-reporter { background: rgba(200,241,53,0.15); color: var(--accent); }
+  /* THINKING */
+  .thinking { display:flex; align-items:center; gap:10px; padding:14px 18px; background:var(--card); border:1px solid var(--border); border-radius:8px; margin-bottom:14px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); }
+  .dots { display:flex; gap:4px; }
+  .dots span { width:5px; height:5px; border-radius:50%; background:var(--accent); animation:dp 1.2s infinite; }
+  .dots span:nth-child(2){animation-delay:0.2s} .dots span:nth-child(3){animation-delay:0.4s}
+  @keyframes dp { 0%,80%,100%{opacity:0.2;transform:scale(0.8)} 40%{opacity:1;transform:scale(1)} }
 
-  .auto-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px; color: var(--muted);
-    margin-left: auto;
-    border: 1px solid var(--border);
-    padding: 2px 6px; border-radius: 3px;
-    letter-spacing: 0.5px;
-  }
+  /* REPORT */
+  .report-card { background:var(--card); border:1px solid var(--accent); border-radius:12px; padding:28px; margin-top:8px; animation:slideIn 0.5s ease both; position:relative; }
+  .report-card::before { content:'WEAKNESS REPORT'; position:absolute; top:-1px; left:20px; background:var(--accent); color:#080808; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; padding:3px 10px; border-radius:0 0 6px 6px; letter-spacing:1.5px; }
+  .report-title { font-size:18px; font-weight:800; margin-bottom:20px; margin-top:10px; }
+  .w-item { display:flex; gap:12px; margin-bottom:18px; align-items:flex-start; }
+  .w-num { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; background:var(--red); color:#fff; width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  .w-num.medium { background:var(--orange); }
+  .w-num.low { background:var(--muted); }
+  .w-content strong { display:block; font-size:14px; margin-bottom:3px; }
+  .w-content p { font-size:13px; color:#888; line-height:1.6; }
+  .w-fix { font-size:12px; color:var(--accent); margin-top:4px; }
+  .severity { font-family:'JetBrains Mono',monospace; font-size:9px; padding:2px 6px; border-radius:3px; margin-left:8px; }
+  .sev-high { background:rgba(255,59,59,0.15); color:var(--red); }
+  .sev-medium { background:rgba(255,140,66,0.15); color:var(--orange); }
+  .sev-low { background:rgba(85,85,85,0.3); color:var(--muted); }
 
-  .attack-text {
-    font-size: 15px; line-height: 1.7;
-    color: var(--text); margin-bottom: 0;
-  }
+  .reset-btn { margin-top:16px; padding:10px 20px; background:transparent; border:1px solid var(--border); color:var(--muted); border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:11px; cursor:pointer; transition:all 0.2s; }
+  .reset-btn:hover { border-color:var(--text); color:var(--text); }
 
-  /* THINKING INDICATOR */
-  .thinking {
-    display: flex; align-items: center; gap: 10px;
-    padding: 16px 20px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; color: var(--muted);
-  }
-  .dots { display: flex; gap: 4px; }
-  .dots span {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: var(--accent);
-    animation: dotpulse 1.2s infinite;
-  }
-  .dots span:nth-child(2) { animation-delay: 0.2s; }
-  .dots span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes dotpulse {
-    0%,80%,100%{ opacity:0.2; transform:scale(0.8); }
-    40%{ opacity:1; transform:scale(1); }
-  }
+  .footer { padding:16px 40px; border-top:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:10px; color:#2a2a2a; }
+  .footer a { color:var(--accent); text-decoration:none; }
 
-  /* DEFENSE SECTION */
-  .defense-section {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
+  @media(max-width:768px) {
+    header,.hero,.input-section,.output { padding-left:20px; padding-right:20px; }
+    .pipeline { padding:16px 20px; }
+    .evidence-grid { grid-template-columns:1fr; }
   }
-  .defense-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; color: var(--muted);
-    letter-spacing: 1px; margin-bottom: 8px;
-    display: block;
-  }
-  .defense-row { display: flex; gap: 8px; }
-  .defense-input {
-    flex: 1; background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px; color: var(--text);
-    font-family: 'Syne', sans-serif;
-    font-size: 13px; padding: 9px 13px;
-    outline: none; transition: border-color 0.2s;
-  }
-  .defense-input:focus { border-color: var(--accent); }
-  .defense-input::placeholder { color: #333; }
-  .defend-btn {
-    padding: 9px 14px;
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    border-radius: 6px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; cursor: pointer;
-    transition: all 0.2s; white-space: nowrap;
-  }
-  .defend-btn:hover { background: rgba(200,241,53,0.08); }
-  .defend-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
-  .rebuttal-box {
-    margin-top: 10px;
-    padding: 12px 14px;
-    background: rgba(255,59,59,0.05);
-    border: 1px solid rgba(255,59,59,0.1);
-    border-radius: 6px;
-    font-size: 13px; line-height: 1.6; color: #aaa;
-  }
-  .rebuttal-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px; color: var(--red);
-    letter-spacing: 1px; display: block;
-    margin-bottom: 5px;
-  }
-
-  /* WEAKNESS REPORT */
-  .report-card {
-    background: var(--card);
-    border: 1px solid var(--accent);
-    border-radius: 14px; padding: 32px;
-    margin-top: 8px;
-    animation: slideIn 0.5s ease both;
-    position: relative;
-  }
-  .report-card::before {
-    content: 'WEAKNESS REPORT';
-    position: absolute; top: -1px; left: 24px;
-    background: var(--accent); color: #080808;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px; font-weight: 700;
-    padding: 3px 10px; border-radius: 0 0 6px 6px;
-    letter-spacing: 1.5px;
-  }
-
-  .report-title {
-    font-size: 20px; font-weight: 800;
-    margin-bottom: 24px; margin-top: 12px;
-    color: var(--text);
-  }
-
-  .weakness-item {
-    display: flex; gap: 14px; margin-bottom: 20px;
-    align-items: flex-start;
-  }
-  .w-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; font-weight: 700;
-    background: var(--red); color: #fff;
-    width: 24px; height: 24px; border-radius: 5px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 1px;
-  }
-  .w-content strong { display: block; font-size: 14px; margin-bottom: 3px; }
-  .w-content p { font-size: 13px; color: #888; line-height: 1.6; }
-
-  .report-footer {
-    margin-top: 24px; padding-top: 16px;
-    border-top: 1px solid var(--border);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; color: var(--muted);
-    display: flex; justify-content: space-between; flex-wrap: gap;
-  }
-
-  /* RESET */
-  .reset-btn {
-    margin-top: 20px;
-    padding: 12px 24px;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    border-radius: 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; cursor: pointer;
-    transition: all 0.2s;
-  }
-  .reset-btn:hover { border-color: var(--text); color: var(--text); }
-
-  @media(max-width:768px){
-    header,
-    .hero,
-    .input-section,
-    .output-section { padding-left: 20px; padding-right: 20px; }
-    .pipeline { padding: 20px; }
-  }
-
-  .built-with {
-    padding: 20px 40px;
-    border-top: 1px solid var(--border);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; color: #333;
-  }
-  .built-with a { color: var(--accent); text-decoration: none; }
 </style>
 </head>
 <body>
 
 <header>
   <div class="logo">Spar<span>ring</span></div>
-  <div class="badge">// agentic loop v2 · OpenAI × Outskill 2026</div>
+  <div class="badge">v2 · research-grounded agent · OpenAI × Outskill 2026</div>
 </header>
 
 <div class="hero">
-  <div class="agent-badge">
-    <div class="agent-dot"></div>
-    AUTONOMOUS AGENT — one input, agent does the rest
-  </div>
+  <div class="agent-badge"><div class="dot"></div>AUTONOMOUS RESEARCH AGENT</div>
   <h1>Your idea enters.<br><em>Weaknesses</em> leave.</h1>
-  <p>Submit once. The agent autonomously attacks your idea as 3 different adversarial personas, adapts based on your defenses, and synthesizes a ranked Weakness Report — no button clicking required.</p>
+  <p class="sub">Submit once. The agent researches real competitors and failures, then autonomously attacks your idea with 3 adversarial personas using real data — not generic AI responses.</p>
 </div>
 
-<!-- INPUT -->
 <div class="input-section">
-  <textarea id="ideaInput" placeholder="Describe your startup idea in 2–3 sentences. What does it do? Who is it for? What problem does it solve?
-
-Example: Sparring is an agentic AI tool that autonomously stress-tests startup ideas by simulating adversarial investor, user, and competitor personas — then synthesizes a Weakness Report so founders fix blind spots before pitching."></textarea>
-  
-  <button class="launch-btn" id="launchBtn" onclick="launchAgent()">
-    ⚡ Launch Agent
-  </button>
-  <div class="launch-hint">Agent will autonomously run 3 attack rounds → synthesize report. You can defend each attack.</div>
+  <textarea id="ideaInput" placeholder="Describe your startup idea in 2–3 sentences...&#10;&#10;Example: An AI agent that autonomously stress-tests startup ideas by researching real competitors and attacking through adversarial personas so founders fix blind spots before pitching."></textarea>
+  <button class="launch-btn" id="launchBtn" onclick="launch()">⚡ Launch Agent</button>
 </div>
 
-<!-- AGENT PIPELINE -->
+<!-- PIPELINE -->
 <div class="pipeline">
-  <div class="pipe-step" id="step-input">
-    <div class="pipe-icon">💡</div>
-    <div class="pipe-label">YOUR IDEA</div>
-  </div>
-  <div class="pipe-arrow">→</div>
-  <div class="pipe-step" id="step-vc">
-    <div class="pipe-icon">💼</div>
-    <div class="pipe-label">VC ATTACK</div>
-  </div>
-  <div class="pipe-arrow">→</div>
-  <div class="pipe-step" id="step-user">
-    <div class="pipe-icon">😤</div>
-    <div class="pipe-label">USER ATTACK</div>
-  </div>
-  <div class="pipe-arrow">→</div>
-  <div class="pipe-step" id="step-founder">
-    <div class="pipe-icon">⚔️</div>
-    <div class="pipe-label">RIVAL ATTACK</div>
-  </div>
-  <div class="pipe-arrow">→</div>
-  <div class="pipe-step" id="step-report">
-    <div class="pipe-icon">📋</div>
-    <div class="pipe-label">REPORT</div>
-  </div>
+  <div class="step" id="s-input"><div class="step-icon">💡</div><div class="step-label">IDEA</div></div>
+  <div class="arrow">→</div>
+  <div class="step" id="s-research"><div class="step-icon">🔍</div><div class="step-label">RESEARCH</div></div>
+  <div class="arrow">→</div>
+  <div class="step" id="s-vc"><div class="step-icon">💼</div><div class="step-label">VC ATTACK</div></div>
+  <div class="arrow">→</div>
+  <div class="step" id="s-user"><div class="step-icon">😤</div><div class="step-label">USER ATTACK</div></div>
+  <div class="arrow">→</div>
+  <div class="step" id="s-founder"><div class="step-icon">⚔️</div><div class="step-label">RIVAL ATTACK</div></div>
+  <div class="arrow">→</div>
+  <div class="step" id="s-report"><div class="step-icon">📋</div><div class="step-label">REPORT</div></div>
 </div>
 
 <!-- OUTPUT -->
-<div class="output-section">
-  <div class="agent-status" id="agentStatus">
-    <div class="status-dot"></div>
-    <span id="statusText">Agent initializing...</span>
-  </div>
-  <div id="outputLog"></div>
+<div class="output">
+  <div class="status-bar" id="statusBar"><div class="status-dot"></div><span id="statusText">Initializing...</span></div>
+  <div id="log"></div>
 </div>
 
-<div class="built-with">
-  Built with <a href="https://platform.openai.com/codex" target="_blank">OpenAI Codex</a> · Agentic loop architecture · #AIBuildersHackathon #Outskill #OpenAI #Codex
+<div class="footer">
+  Built with <a href="https://platform.openai.com" target="_blank">OpenAI</a> + <a href="https://tavily.com" target="_blank">Tavily</a> · Agentic research loop · #AIBuildersHackathon #Outskill #OpenAI #Codex
 </div>
 
 <script>
-// ─── CONFIG ──────────────────────────────────────────────
-// Add your Anthropic API key here to run live
-// OR deploy to a backend — see README
-const API_KEY = "API_KEY_HERE";
-// ─────────────────────────────────────────────────────────
+const steps = ['input','research','vc','user','founder','report'];
 
-const AGENT_PERSONAS = [
-  {
-    id: 'vc',
-    name: 'Skeptical VC',
-    emoji: '💼',
-    chip: 'chip-vc',
-    cardClass: 'vc',
-    stepId: 'step-vc',
-    system: `You are a brutally skeptical Venture Capitalist who has seen 10,000 pitches and funded 12. You NEVER get impressed easily. Your job: find the single most fatal flaw in this business — market size delusion, defensibility gap, team mismatch, or competitive blindspot. Be sharp, direct, 2-3 sentences. End with ONE devastating question. No pleasantries.`
-  },
-  {
-    id: 'user',
-    name: 'Cynical User',
-    emoji: '😤',
-    chip: 'chip-user',
-    cardClass: 'user',
-    stepId: 'step-user',
-    system: `You are a busy, skeptical potential customer who has been burned by overpromised tech products. You always ask: "why wouldn't I just use [existing free solution]?" You hate complexity, don't want to change habits, and are price-sensitive. Based on the attack history so far, find a NEW angle the VC missed. 2-3 sentences, end with ONE practical user objection as a question.`
-  },
-  {
-    id: 'founder',
-    name: 'Rival Founder',
-    emoji: '⚔️',
-    chip: 'chip-founder',
-    cardClass: 'founder',
-    stepId: 'step-founder',
-    system: `You are a rival founder who has already built something adjacent and knows every pitfall. You've seen the VC and user attacks. Find the EXECUTION gap they both missed — the technical debt, the go-to-market trap, or the scaling nightmare. 2-3 sentences, end with ONE question that shows you've already solved what they haven't figured out yet.`
-  }
-];
-
-let idea = '';
-let attackLog = [];
-let agentRunning = false;
-
-function setStep(stepId, state) {
-  // state: 'active' | 'done' | ''
-  const steps = ['step-input','step-vc','step-user','step-founder','step-report'];
+function setStep(active) {
   steps.forEach(s => {
-    const el = document.getElementById(s);
+    const el = document.getElementById(`s-${s}`);
     el.classList.remove('active','done');
   });
-  // mark all before as done, current as active
   let found = false;
   steps.forEach(s => {
-    const el = document.getElementById(s);
-    if(s === stepId){ el.classList.add('active'); found = true; }
+    const el = document.getElementById(`s-${s}`);
+    if(s === active){ el.classList.add('active'); found = true; }
     else if(!found){ el.classList.add('done'); }
   });
 }
 
-function setStatus(text) {
-  const bar = document.getElementById('agentStatus');
+function setStatus(msg) {
+  const bar = document.getElementById('statusBar');
   bar.style.display = 'flex';
-  document.getElementById('statusText').textContent = text;
+  document.getElementById('statusText').textContent = msg;
 }
 
-function hideStatus() {
-  document.getElementById('agentStatus').style.display = 'none';
-}
-
-function addThinking(id, label) {
-  const log = document.getElementById('outputLog');
-  log.innerHTML += `<div class="thinking" id="think-${id}">
-    <div class="dots"><span></span><span></span><span></span></div>
-    <span>${label}</span>
-  </div>`;
+function addThinking(id, msg) {
+  const log = document.getElementById('log');
+  log.innerHTML += `<div class="thinking" id="t-${id}"><div class="dots"><span></span><span></span><span></span></div><span>${msg}</span></div>`;
   log.scrollTop = log.scrollHeight;
 }
 
 function removeThinking(id) {
-  const el = document.getElementById(`think-${id}`);
-  if(el) el.remove();
+  document.getElementById(`t-${id}`)?.remove();
 }
 
-async function callAPI(systemPrompt, userPrompt) {
-  // If no API key, return a smart mock for demo purposes
-  if(API_KEY === "YOUR_ANTHROPIC_API_KEY_HERE") {
-    await sleep(1800 + Math.random() * 800);
-    return getMockAttack(systemPrompt);
-  }
-
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': API_KEY,
-      'anthropic-version': '2023-06-01'
-    },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
-      messages: [
-        { role: 'user', content: `${systemPrompt}\n\n${userPrompt}` }
-      ]
-    })
-  });
-  const data = await response.json();
-  if(data.error) throw new Error(data.error.message);
-  return data.content[0].text;
+function addAttack(persona, personaName, text) {
+  const chips = { vc:'chip-vc', user:'chip-user', founder:'chip-founder' };
+  const names = { vc:'💼 Skeptical VC', user:'😤 Cynical User', founder:'⚔️ Rival Founder' };
+  const log = document.getElementById('log');
+  log.innerHTML += `
+    <div class="attack-card ${persona}">
+      <div class="card-header">
+        <span class="chip ${chips[persona]}">${names[persona]}</span>
+        <span class="auto-tag">AUTO · RESEARCH-GROUNDED</span>
+      </div>
+      <div class="attack-text">${text}</div>
+    </div>`;
+  log.scrollTop = log.scrollHeight;
 }
 
-function getMockAttack(system) {
-  const mocks = {
-    vc: `Every founder pitching this has said "there's no real feedback tool for ideas" — but YC's Startup School, Cofounder matching, and every accelerator does exactly this with real humans. You're replacing mentorship with automation, which sounds great until your first paying customer asks why the AI just told them to pivot away from their $200K revenue product. What's your defensible edge once OpenAI or Perplexity ships this natively in their products next quarter?`,
-    user: `I'd try this once, but the second the agent tears apart my idea with generic questions I could've Googled, I'm never coming back. Why would I trust a bot's adversarial feedback over one honest conversation with a domain expert who actually knows my market? And what exactly does this cost — because if it's more than zero, I'm just posting in a subreddit instead?`,
-    founder: `I built an idea validation tool last year — we had 4,000 signups and 12 paying customers. The brutal truth is that founders who WANT their idea attacked are not the same founders who NEED it attacked. The ones who need it most dismiss AI feedback as "not understanding their vision." How are you going to make a founder who's already emotionally invested actually act on this report instead of just screenshot it for LinkedIn clout?`
-  };
-  if(system.includes('Venture Capital')) return mocks.vc;
-  if(system.includes('potential customer')) return mocks.user;
-  return mocks.founder;
+function addResearch(queries, pack) {
+  const log = document.getElementById('log');
+  const competitors = (pack.competitors||[]).map(c=>`<span class="evidence-tag">${c.name}</span>`).join('') || '<span style="color:#333;font-size:11px">none found</span>';
+  const failures = (pack.failureCases||[]).map(f=>`<span class="evidence-tag red">${f.company}</span>`).join('') || '<span style="color:#333;font-size:11px">none found</span>';
+  const risks = (pack.marketRisks||[]).map(r=>`<span class="evidence-tag orange">${r.risk.slice(0,40)}</span>`).join('') || '<span style="color:#333;font-size:11px">none found</span>';
+
+  log.innerHTML += `
+    <div class="research-box">
+      <div class="research-title">🔍 RESEARCH COMPLETE — EVIDENCE PACK</div>
+      <div>${(queries||[]).map(q=>`<span class="query-chip">${q}</span>`).join('')}</div>
+      <div class="evidence-grid">
+        <div class="evidence-item"><div class="evidence-label">COMPETITORS FOUND</div>${competitors}</div>
+        <div class="evidence-item"><div class="evidence-label">FAILURE CASES</div>${failures}</div>
+        <div class="evidence-item" style="grid-column:1/-1"><div class="evidence-label">MARKET RISKS</div>${risks}</div>
+      </div>
+    </div>`;
+  log.scrollTop = log.scrollHeight;
 }
 
-function getMockRebuttal(defense, personaId) {
-  const rebuttals = {
-    vc: `That's a reasonable answer but you just described a feature, not a moat. Any competitor with 10 engineers can build that differentiation in a sprint — what happens to your business when they do?`,
-    user: `You're still assuming I'll change my workflow for this. The product you just described requires me to trust it, learn it, and pay for it — that's three barriers most tools fail at independently.`,
-    founder: `I thought the same thing at launch. Turns out "better execution" is what every founder says right before they realize they've been building for themselves, not their users.`
-  };
-  return rebuttals[personaId] || `Interesting defense, but you haven't addressed the core structural risk. This could still be the thing that kills you in month 8.`;
-}
-
-function getMockReport(idea, history) {
-  return [
-    { title: "Defensibility Gap", risk: "The core loop can be replicated by any well-prompted LLM — there's no proprietary data, network effect, or switching cost locking users in." },
-    { title: "Wrong Audience Fit", risk: "Founders who seek adversarial feedback are already self-aware; the ones who need it most will dismiss AI critique as invalid and move on." },
-    { title: "Monetization Unclear", risk: "No clear answer on pricing — free users won't convert and paid users will expect enterprise-grade feedback accuracy the MVP can't deliver yet." }
-  ];
-}
-
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-async function launchAgent() {
-  idea = document.getElementById('ideaInput').value.trim();
-  if(!idea) {
-    document.getElementById('ideaInput').style.borderColor = 'var(--red)';
-    setTimeout(()=> document.getElementById('ideaInput').style.borderColor = 'var(--border)', 2000);
-    return;
-  }
-
-  if(agentRunning) return;
-  agentRunning = true;
-
-  document.getElementById('launchBtn').disabled = true;
-  document.getElementById('launchBtn').textContent = '⚡ Agent Running...';
-  document.getElementById('outputLog').innerHTML = '';
-  attackLog = [];
-
-  setStep('step-input');
-  setStatus('🤖 Agent initialized — beginning autonomous attack sequence');
-  await sleep(800);
-
-  // ── AUTONOMOUS ATTACK LOOP ──────────────────────────────
-  for(let i = 0; i < AGENT_PERSONAS.length; i++) {
-    const p = AGENT_PERSONAS[i];
-
-    setStep(p.stepId);
-    setStatus(`🎭 Agent switching to persona: ${p.name}...`);
-    await sleep(600);
-
-    setStatus(`💭 ${p.name} analyzing your idea...`);
-    addThinking(p.id, `${p.emoji} ${p.name} is reading your idea and attack history...`);
-
-    // Build context from previous rounds
-    const historyContext = attackLog.length > 0
-      ? `\n\nPrevious attacks in this session:\n${attackLog.map((a,idx) => `Round ${idx+1} (${a.personaName}): "${a.attack}"`).join('\n\n')}\n\nUse this context. Do NOT repeat the same angle.`
-      : '';
-
-    let attack;
-    try {
-      attack = await callAPI(
-        p.system,
-        `Startup idea: "${idea}"${historyContext}\n\nDeliver your attack now.`
-      );
-    } catch(e) {
-      attack = `[Agent encountered an error: ${e.message}. Add your API key to enable live attacks.]`;
-    }
-
-    removeThinking(p.id);
-
-    attackLog.push({ personaId: p.id, personaName: p.name, attack, defense: null, rebuttal: null });
-    const idx = attackLog.length - 1;
-
-    // Render attack card
-    const log = document.getElementById('outputLog');
-    log.innerHTML += `
-      <div class="attack-card ${p.cardClass}" id="acard-${idx}">
-        <div class="card-header">
-          <span class="persona-chip ${p.chip}">${p.emoji} ${p.name}</span>
-          <span class="auto-badge">AUTO · ROUND ${i+1}</span>
-        </div>
-        <div class="attack-text">${attack}</div>
-        <div class="defense-section">
-          <span class="defense-label">YOUR DEFENSE (optional)</span>
-          <div class="defense-row">
-            <input class="defense-input" id="def-${idx}" placeholder="How do you answer this? Press Enter to submit..." 
-              onkeydown="if(event.key==='Enter') submitDefense(${idx}, '${p.id}')">
-            <button class="defend-btn" id="defbtn-${idx}" onclick="submitDefense(${idx}, '${p.id}')">DEFEND →</button>
-          </div>
-          <div id="reb-${idx}"></div>
-        </div>
-      </div>`;
-    log.scrollTop = log.scrollHeight;
-
-    // Wait a bit before next attack (gives user time to see it, feel autonomous)
-    await sleep(1200);
-  }
-
-  // ── AUTONOMOUS REPORT GENERATION ───────────────────────
-  setStep('step-report');
-  setStatus('📋 Agent synthesizing Weakness Report...');
-  addThinking('report', '📊 Analyzing all 3 attacks to identify core weaknesses...');
-
-  await sleep(500);
-
-  let weaknesses;
-  try {
-    const historyStr = attackLog.map((a,i) =>
-      `Round ${i+1} — ${a.personaName}:\nAttack: "${a.attack}"${a.defense ? `\nFounder defended: "${a.defense}"\nRebuttal: "${a.rebuttal}"` : ''}`
-    ).join('\n\n');
-
-    const raw = await callAPI(
-      `You are a startup advisor synthesizing attack findings. Return ONLY a JSON array with exactly 3 objects: [{"title": "3-5 word weakness title", "risk": "one clear sentence explaining the risk"}]. No markdown, no explanation, just the JSON array.`,
-      `Startup idea: "${idea}"\n\nSparring session:\n${historyStr}`
-    );
-
-    const clean = raw.replace(/```json|```/g, '').trim();
-    try { weaknesses = JSON.parse(clean); }
-    catch(e) { weaknesses = getMockReport(idea, attackLog); }
-  } catch(e) {
-    weaknesses = getMockReport(idea, attackLog);
-  }
-
-  removeThinking('report');
-
-  const log = document.getElementById('outputLog');
-  let reportHtml = `<div class="report-card">
-    <div class="report-title">Your Idea's Top 3 Weaknesses</div>`;
-
-  weaknesses.slice(0,3).forEach((w,i) => {
-    reportHtml += `<div class="weakness-item">
-      <div class="w-num">${i+1}</div>
+function addReport(weaknesses) {
+  const log = document.getElementById('log');
+  let html = `<div class="report-card"><div class="report-title">Your Top ${weaknesses.length} Critical Weaknesses</div>`;
+  weaknesses.forEach((w,i) => {
+    const sevClass = w.severity === 'high' ? '' : w.severity === 'medium' ? 'medium' : 'low';
+    const chipClass = w.severity === 'high' ? 'sev-high' : w.severity === 'medium' ? 'sev-medium' : 'sev-low';
+    html += `<div class="w-item">
+      <div class="w-num ${sevClass}">${i+1}</div>
       <div class="w-content">
-        <strong>${w.title}</strong>
+        <strong>${w.title}<span class="severity ${chipClass}">${w.severity}</span></strong>
         <p>${w.risk}</p>
+        <div class="w-fix">→ ${w.fix}</div>
       </div>
     </div>`;
   });
-
-  reportHtml += `<div class="report-footer">
-    <span>3 rounds · autonomous agent · ${new Date().toLocaleDateString()}</span>
-    <span>#AIBuildersHackathon #Codex #OpenAI</span>
-  </div></div>
-  <button class="reset-btn" onclick="resetAgent()">↩ Attack a new idea</button>`;
-
-  log.innerHTML += reportHtml;
+  html += `</div><button class="reset-btn" onclick="reset()">↩ Attack a new idea</button>`;
+  log.innerHTML += html;
   log.scrollTop = log.scrollHeight;
-
-  hideStatus();
-  setStep('step-report');
-  // mark all done
-  ['step-input','step-vc','step-user','step-founder','step-report'].forEach(s => {
-    document.getElementById(s).classList.remove('active');
-    document.getElementById(s).classList.add('done');
-  });
-
-  agentRunning = false;
-  document.getElementById('launchBtn').textContent = '✅ Agent Complete';
 }
 
-async function submitDefense(idx, personaId) {
-  const input = document.getElementById(`def-${idx}`);
-  const btn = document.getElementById(`defbtn-${idx}`);
-  const defense = input.value.trim();
-  if(!defense) return;
+let queries = [];
 
-  input.disabled = true;
-  btn.disabled = true;
+async function launch() {
+  const idea = document.getElementById('ideaInput').value.trim();
+  if(!idea || idea.length < 10) {
+    document.getElementById('ideaInput').style.borderColor = 'var(--red)';
+    setTimeout(()=>document.getElementById('ideaInput').style.borderColor='var(--border)', 2000);
+    return;
+  }
 
-  const rebDiv = document.getElementById(`reb-${idx}`);
-  rebDiv.innerHTML = `<div class="thinking" style="margin-top:10px;"><div class="dots"><span></span><span></span><span></span></div><span>Preparing rebuttal...</span></div>`;
+  document.getElementById('launchBtn').disabled = true;
+  document.getElementById('launchBtn').textContent = '⚡ Agent Running...';
+  document.getElementById('log').innerHTML = '';
+  queries = [];
+
+  setStep('input');
+  setStatus('🤖 Agent initialized — starting research phase...');
 
   try {
-    const p = AGENT_PERSONAS.find(x => x.id === personaId);
-    let rebuttal;
+    const res = await fetch('/api/spar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idea })
+    });
 
-    if(API_KEY === "YOUR_ANTHROPIC_API_KEY_HERE") {
-      await sleep(1400);
-      rebuttal = getMockRebuttal(defense, personaId);
-    } else {
-      rebuttal = await callAPI(
-        p.system,
-        `Startup idea: "${idea}"\nYour attack was: "${attackLog[idx].attack}"\nFounder's defense: "${defense}"\n\nGive a sharp 1-2 sentence rebuttal that shows their defense has a hole. Be precise and honest.`
-      );
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while(true) {
+      const { done, value } = await reader.read();
+      if(done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+
+      for(const line of lines) {
+        if(!line.startsWith('data: ')) continue;
+        try {
+          const event = JSON.parse(line.slice(6));
+          handleEvent(event);
+        } catch {}
+      }
     }
-
-    attackLog[idx].defense = defense;
-    attackLog[idx].rebuttal = rebuttal;
-
-    rebDiv.innerHTML = `<div class="rebuttal-box">
-      <span class="rebuttal-label">AGENT REBUTTAL</span>
-      ${rebuttal}
-    </div>`;
   } catch(e) {
-    rebDiv.innerHTML = `<div class="rebuttal-box"><span class="rebuttal-label">ERROR</span>${e.message}</div>`;
+    document.getElementById('log').innerHTML += `<div class="thinking"><span style="color:var(--red)">⚠️ Could not connect to server. Make sure you ran: node server.js</span></div>`;
+    document.getElementById('launchBtn').disabled = false;
+    document.getElementById('launchBtn').textContent = '⚡ Launch Agent';
   }
 }
 
-function resetAgent() {
-  document.getElementById('outputLog').innerHTML = '';
+function handleEvent(e) {
+  if(e.type === 'phase') {
+    const map = { research:'research', vc:'vc', user:'user', founder:'founder', report:'report' };
+    if(map[e.phase]) setStep(map[e.phase]);
+    addThinking(e.phase, e.label);
+  }
+  if(e.type === 'status') setStatus(e.message);
+  if(e.type === 'queries') { queries = e.queries; }
+  if(e.type === 'evidencePack') {
+    removeThinking('research');
+    addResearch(queries, e.pack);
+  }
+  if(e.type === 'attack') {
+    removeThinking(e.persona);
+    addAttack(e.persona, e.personaName, e.text);
+  }
+  if(e.type === 'report') {
+    removeThinking('report');
+    addReport(e.weaknesses);
+    document.getElementById('statusBar').style.display = 'none';
+    // Mark all done
+    steps.forEach(s => {
+      document.getElementById(`s-${s}`).classList.remove('active');
+      document.getElementById(`s-${s}`).classList.add('done');
+    });
+    document.getElementById('launchBtn').textContent = '✅ Agent Complete';
+  }
+  if(e.type === 'error') {
+    document.getElementById('log').innerHTML += `<div class="thinking"><span style="color:var(--red)">⚠️ ${e.message}</span></div>`;
+    document.getElementById('launchBtn').disabled = false;
+    document.getElementById('launchBtn').textContent = '⚡ Launch Agent';
+  }
+}
+
+function reset() {
+  document.getElementById('log').innerHTML = '';
   document.getElementById('ideaInput').value = '';
   document.getElementById('launchBtn').disabled = false;
   document.getElementById('launchBtn').textContent = '⚡ Launch Agent';
-  hideStatus();
-  attackLog = [];
-  agentRunning = false;
-  idea = '';
-  ['step-input','step-vc','step-user','step-founder','step-report'].forEach(s => {
-    document.getElementById(s).classList.remove('active','done');
-  });
+  document.getElementById('statusBar').style.display = 'none';
+  steps.forEach(s => document.getElementById(`s-${s}`).classList.remove('active','done'));
 }
 </script>
 </body>
